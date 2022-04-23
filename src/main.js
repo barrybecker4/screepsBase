@@ -3,10 +3,10 @@ var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 
 /**
- * One of scripts for console
+ * One off scripts for console
  * Game.spawns['Spawn1'].spawnCreep( [WORK, CARRY, MOVE], 'harvester1', { memory:{ role: 'harvester' }} );
  * Game.spawns['Spawn1'].spawnCreep( [WORK, CARRY, MOVE], 'harvester2', { memory:{ role: 'harvester' }} );
- Game.spawns['Spawn1'].spawnCreep( [WORK, CARRY, MOVE], 'harvester2', { memory:{ role: 'builder' }} );
+ * Game.spawns['Spawn1'].spawnCreep( [WORK, CARRY, MOVE], 'harvester2', { memory:{ role: 'builder' }} );
  *
  module.exports.loop = function () {
      var creep = Game.creeps['Harvester1'];
