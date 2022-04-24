@@ -1,42 +1,30 @@
 var roleHarvester = require('roles_role.harvester');
 var roleUpgrader = require('roles_role.upgrader');
 var roleBuilder = require('roles_role.builder');
+var creepMaintainer = require('maintenance_creeps');
 
-/**
- * One off scripts for console
- * Game.spawns['Spawn1'].spawnCreep( [WORK, WORK, CARRY, MOVE], 'harvester1', { memory:{ role: 'harvester' }} );
- * Game.spawns['Spawn1'].spawnCreep( [WORK, CARRY, MOVE], 'harvester2', { memory:{ role: 'harvester' }} );
- * Game.spawns['Spawn1'].spawnCreep( [WORK, CARRY, MOVE], 'builder1', { memory:{ role: 'builder' }} );
- * Game.spawns['Spawn1'].spawnCreep( [WORK, CARRY, MOVE], 'upgrader1', { memory:{ role: 'upgrader' }} );
- *
- module.exports.loop = function () {
-     var creep = Game.creeps['Harvester1'];
-     var sources = creep.room.find(FIND_SOURCES);
-     if (creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
-         creep.moveTo(sources[0]);
-     }
- }
- */
 module.exports.loop = function () {
 
     // This will send emails to you when executed.
     // Game.notify(`Does this show? User bb4`);
 
-    if (!Game.creeps["harvester1"]) {
-        Game.spawns['Spawn1'].spawnCreep( [WORK, WORK, CARRY, MOVE], 'harvester1', { memory:{ role: 'harvester' }} );
-    }
+    creepMaintainer.run();
 
     for (var name in Game.creeps) {
         var creep = Game.creeps[name];
-        console.log("creep " + JSON.stringify(creep.memory));
-        if (creep.memory.role == 'harvester') {
-            roleHarvester.run(creep);
-        }
-        if (creep.memory.role == 'upgrader') {
-            roleUpgrader.run(creep);
-        }
-        if (creep.memory.role == 'builder') {
-            roleBuilder.run(creep);
+        //console.log("creep " + JSON.stringify(creep.memory));
+
+        switch (creep.memory.role) {
+            case 'harvester':
+                roleHarvester.run(creep);
+                break;
+            case 'upgrader':
+                roleUpgrader.run(creep);
+                break;
+            case 'builder':
+                roleBuilder.run(creep);
+                break;
+            default: throw new Error("Unexpected role: " + creep.memory.role);
         }
     }
 
