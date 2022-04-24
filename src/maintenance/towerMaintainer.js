@@ -1,4 +1,3 @@
-// Replenish creeps if they expire
 var towerMaintainer = {
 
     run: function() {
