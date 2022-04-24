@@ -1,7 +1,8 @@
-var roleHarvester = require('roles_role.harvester');
-var roleUpgrader = require('roles_role.upgrader');
-var roleBuilder = require('roles_role.builder');
-var creepMaintainer = require('maintenance_creeps');
+const roleHarvester = require('roles_role.harvester');
+const roleUpgrader = require('roles_role.upgrader');
+const roleBuilder = require('roles_role.builder');
+const creepMaintainer = require('maintenance_creepMaintainer');
+const towerMaintainer = require('maintenance_towerMaintainer');
 
 module.exports.loop = function () {
 
@@ -10,8 +11,8 @@ module.exports.loop = function () {
 
     creepMaintainer.run();
 
-    for (var name in Game.creeps) {
-        var creep = Game.creeps[name];
+    for (let name in Game.creeps) {
+        const creep = Game.creeps[name];
         //console.log("creep " + JSON.stringify(creep.memory));
 
         switch (creep.memory.role) {
@@ -28,20 +29,5 @@ module.exports.loop = function () {
         }
     }
 
-    // Once the base is established we can create and maintain a tower.
-    var tower = Game.getObjectById('7ae49ba57f35359f19916d70');
-    if (tower) {
-        const closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
-            filter: (structure) => structure.hits < structure.hitsMax
-        });
-        if (closestDamagedStructure) {
-            tower.repair(closestDamagedStructure);
-        }
-
-        const closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-        if (closestHostile) {
-            tower.attack(closestHostile);
-        }
-    }
-
+    towerMaintainer.run();
 }

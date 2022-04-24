@@ -10,7 +10,7 @@ var creepMaintainer = {
     */
     run: function() {
         const spawn = Game.spawns['Spawn1'];
-        if (spawn && spawn.store.energe > 250) {
+        if (spawn && spawn.store.energy > 250) {
 
             if (!Game.creeps["harvester1"]) {
                 spawn.spawnCreep( [WORK, CARRY, MOVE], 'harvester1', { memory:{ role: 'harvester' }} );
@@ -23,6 +23,9 @@ var creepMaintainer = {
             }
             else if (!Game.creeps["harvester2"]) {
                 spawn.spawnCreep( [WORK, CARRY, MOVE], 'harvester2', { memory:{ role: 'harvester' }} );
+            }
+            else if (!Game.creeps["upgrader2"]) {
+                spawn.spawnCreep( [WORK, CARRY, MOVE], 'upgrader2', { memory:{ role: 'upgrader' }} );
             }
         }
 	  }

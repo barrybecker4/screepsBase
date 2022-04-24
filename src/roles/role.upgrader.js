@@ -12,7 +12,7 @@ var roleUpgrader = {
 
 	    if (creep.memory.upgrading) {
             if (creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
-                creep.say("mv to ctrlr");
+                creep.say("mv to ctlr");
                 creep.moveTo(creep.room.controller, {visualizePathStyle: {stroke: '#ffffff'}});
             }
         }
